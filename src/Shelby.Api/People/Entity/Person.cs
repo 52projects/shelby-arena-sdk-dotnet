@@ -10,7 +10,10 @@ using Shelby.Api.Model;
 
 namespace Shelby.Api.People.Entity {
     [Serializable]
-    public class Person { 
+    public class Person {
+        [XmlArrayItem("Address", typeof(Address))]
+        [XmlArray("Addresses")]
+        public List<Address> Addresses { get; set; }
         [XmlElement("Age")]
         public int Age { get; set; }
 

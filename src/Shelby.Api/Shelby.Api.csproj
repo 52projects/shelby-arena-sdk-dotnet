@@ -61,6 +61,7 @@
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Entity\ApiModel.cs" />
     <Compile Include="Entity\ApiSession.cs" />
+    <Compile Include="People\Entity\Address.cs" />
     <Compile Include="People\Entity\Person.cs" />
     <Compile Include="People\Enum\PersonSortField.cs" />
     <Compile Include="People\QueryObject\PersonQO.cs" />
