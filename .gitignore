@@ -124,5 +124,3 @@ UpgradeLog*.XML
 *.dacpac
 *.dbmdl
 *.orig
-
-src/Shelby.Api.Tests/App.config
