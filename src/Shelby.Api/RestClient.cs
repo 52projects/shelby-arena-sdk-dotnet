@@ -23,9 +23,11 @@ namespace Shelby.Api {
         public ApiSession ApiSession { get;  set;}
 
         private PeopleRealm _peopleRealm { get; set; }
+        private GivingRealm _givingRealm { get; set; }
 
 
         public PeopleRealm People { get { return _peopleRealm; } }
+        public GivingRealm Giving { get { return _givingRealm; } }
 
         #endregion Properties
 
@@ -77,6 +79,7 @@ namespace Shelby.Api {
                 ApiSession = this.ApiSession
             };
             this._peopleRealm = new PeopleRealm(credentials);
+            this._givingRealm = new GivingRealm(credentials);
         }
         #endregion Methods
     }

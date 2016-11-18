@@ -9,9 +9,10 @@ using Shouldly;
 using Shelby.Api.People.Entity;
 using Shelby.Api.People.QueryObject;
 
-namespace Shelby.Api.Tests.Session {
+
+namespace Shelby.Api.Tests.People {
     [TestClass]
-    public class ListTests : BaseTest {
+    public class UpdateTests : BaseTest {
 
         [TestInitialize]
         public override void Setup() {
@@ -22,6 +23,7 @@ namespace Shelby.Api.Tests.Session {
         public void integration_people_list_get_people() {
             var qo = new PersonQO();
             qo.AddSearchByFeild("FirstName", "chad");
+            qo.AddSearchByFeild("LastName", "meyer");
 
             var results = this.ShelbyRestClient.People.Individuals.FindAll(qo);
         }

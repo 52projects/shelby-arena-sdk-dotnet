@@ -56,7 +56,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
-    <Compile Include="People\ListTests.cs" />
+    <Compile Include="Giving\BatchTypes\ListTests.cs" />
+    <Compile Include="People\Person\CreateTests.cs" />
+    <Compile Include="People\Person\GetTests.cs" />
+    <Compile Include="People\Person\ListTests.cs" />
+    <Compile Include="People\Person\UpdateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\GetSessionTests.cs" />
   </ItemGroup>
@@ -70,6 +74,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

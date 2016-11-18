@@ -65,6 +65,7 @@ namespace Shelby.Api {
         #region Constructor
         protected BaseApiSet(RequestCredentials credentials) {
             this._requestCredentials = credentials;
+            this._contentType = ContentType.XML;
         }
         #endregion Constructor
 
@@ -188,7 +189,7 @@ namespace Shelby.Api {
             return (int)item.StatusCode < 300;
         }
 
-        public virtual T Create(byte[] stream, string url = "", string fileParamaterName = "stream", string fileName = "", string fileType = "") {
+        public virtual ModifyResult Create(byte[] stream, string url = "", string fileParamaterName = "stream", string fileName = "", string fileType = "") {
             var targetUrl = string.Empty;
             if (!string.IsNullOrWhiteSpace(url)) {
                 if (url.Trim().Length <= this._requestCredentials.BaseUrl.Length) {
@@ -205,7 +206,7 @@ namespace Shelby.Api {
             var request = CreateRestRequest(Method.POST, targetUrl);
             request.AddFile(fileParamaterName, stream, fileName, fileType);
 
-            var response = this.ExecuteRequest(request);
+            var response = this.ExecuteCustomRequest<ModifyResult>(request);
             return response.Data;
         }
 
@@ -244,7 +245,7 @@ namespace Shelby.Api {
             return (int)item.StatusCode < 300;
         }
 
-        public virtual T Create(T entity, string url = "") {
+        public virtual ModifyResult Create(T entity, string url = "") {
             var targetUrl = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(url)) {
@@ -275,11 +276,11 @@ namespace Shelby.Api {
                 request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(entity), ParameterType.RequestBody);
             }
 
-            var item = ExecuteRequest(request);
+            var item = ExecuteCustomRequest<ModifyResult>(request);
             return item.Data;
         }
 
-        public virtual T Create(T entity, out string requestXml, string url = "") {
+        public virtual ModifyResult Create(T entity, out string requestXml, string url = "") {
             requestXml = entity.ToXml();
             var targetUrl = string.Empty;
 
@@ -307,7 +308,7 @@ namespace Shelby.Api {
                 request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(entity), ParameterType.RequestBody);
             }
 
-            var item = ExecuteRequest(request);
+            var item = ExecuteCustomRequest<ModifyResult>(request);
             return item.Data;
         }
 
@@ -332,7 +333,7 @@ namespace Shelby.Api {
             return (int)item.StatusCode < 300;
         }
 
-        public virtual T Update(T entity, string id) {
+        public virtual ModifyResult Update(T entity, string id) {
             if (string.IsNullOrWhiteSpace(EditUrl)) {
                 throw new NotImplementedException("The property EditUrl has no value on the ApiSet.");
             }
@@ -345,11 +346,11 @@ namespace Shelby.Api {
                 request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(entity), ParameterType.RequestBody);
             }
 
-            var item = ExecuteRequest(request);
+            var item = ExecuteCustomRequest<ModifyResult>(request);
             return item.Data;
         }
 
-        public virtual T Update(T entity, string id, out string requestXml) {
+        public virtual ModifyResult Update(T entity, string id, out string requestXml) {
             if (string.IsNullOrWhiteSpace(EditUrl)) {
                 throw new NotImplementedException("The property EditUrl has no value on the ApiSet.");
             }
@@ -363,7 +364,7 @@ namespace Shelby.Api {
                 request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(entity), ParameterType.RequestBody);
             }
 
-            var item = ExecuteRequest(request);
+            var item = ExecuteCustomRequest<ModifyResult>(request);
             return item.Data;
         }
 
@@ -407,15 +408,20 @@ namespace Shelby.Api {
 
             // Get the sort direction
             request.AddParameter("sortDirection", qo.SortDirection.ToDescription());
-            request.AddParameter("api_session", this._requestCredentials.ApiSession.SessionID);
 
             var results = ExecuteListRequest(request);
             return results.Data;
         }
 
+        internal List<T> FindAll(string url) {
+            this._parameters = new Dictionary<string, string>();
+            var request = CreateRestRequest(Method.GET, url);
+            var results = ExecuteListRequest(request);
+            return results.Data;
+        }
+
         internal IRestResponse<T> ExecuteRequest(IRestRequest request) {
-            var client = new RestSharp.RestClient(this._requestCredentials.BaseUrl);
-            client.FollowRedirects = false;
+            var client = this.CreateRestClient(request);
             var response = client.Execute<T>(request);
 
             if ((int)response.StatusCode >= 400) {
@@ -443,8 +449,7 @@ namespace Shelby.Api {
         }
 
         protected IRestResponse ExecuteGenericRequest(IRestRequest request) {
-            var client = new RestSharp.RestClient(this._requestCredentials.BaseUrl);
-            client.FollowRedirects = false;
+            var client = this.CreateRestClient(request);
             var response = client.Execute(request);
 
             if ((int)response.StatusCode > 300) {
@@ -459,8 +464,7 @@ namespace Shelby.Api {
         }
 
         protected IRestResponse<S> ExecuteCustomRequest<S>(IRestRequest request) where S : new() {
-            var client = new RestSharp.RestClient(this._requestCredentials.BaseUrl);
-            client.FollowRedirects = false;
+            var client = this.CreateRestClient(request);
             var response = client.Execute<S>(request);
 
             if ((int)response.StatusCode > 300) {
@@ -498,6 +502,7 @@ namespace Shelby.Api {
             request.RequestFormat = _contentType == ContentType.JSON ? DataFormat.Json : DataFormat.Xml;
             request.AddHeader("Accept-Encoding", "gzip,deflate");
             request.AddHeader("Content-Type", !string.IsNullOrEmpty(contentType) ? contentType : _contentType == ContentType.XML ? "application/xml" : "application/json");
+            request.AddQueryParameter("api_session", this._requestCredentials.ApiSession.SessionID);
 
             if (_requestHeaders != null && _requestHeaders.Count > 0) {
                 foreach (var current in _requestHeaders) {
@@ -556,7 +561,7 @@ namespace Shelby.Api {
             var client = new RestSharp.RestClient(this._requestCredentials.BaseUrl);
             client.FollowRedirects = false;
 
-            request.AddParameter("api_sig", this._requestCredentials.CreateSignature(client.BuildUri(request).AbsoluteUri));
+            request.AddQueryParameter("api_sig", this._requestCredentials.CreateSignature(client.BuildUri(request).AbsoluteUri));
             return client;
         }
 

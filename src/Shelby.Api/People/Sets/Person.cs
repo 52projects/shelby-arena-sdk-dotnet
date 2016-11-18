@@ -10,12 +10,19 @@ using Shelby.Api.People.QueryObject;
 
 namespace Shelby.Api.People.Sets {
     public class Person : ApiSet<Entity.Person> {
+        protected override string GetUrl { get { return "person/{0}"; } }
+        protected override string EditUrl {get {return "person/{0}/update";}}
+        protected override string CreateUrl { get { return "person/add"; } }
         public Person(RequestCredentials credentials) : base(credentials) {
 
         }
 
         public List<Entity.Person> FindAll(PersonQO qo) {
             return base.FindAll("person/list", qo);
+        }
+
+        public Entity.Person FindByID(int id) {
+            return base.Get(id.ToString());
         }
     }
 }
