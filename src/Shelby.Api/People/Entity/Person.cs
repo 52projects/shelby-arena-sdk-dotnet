@@ -47,6 +47,9 @@ namespace Shelby.Api.People.Entity {
         [XmlElement("BusinessPhone")]
         public string BusinessPhone { get; set; }
 
+        [XmlElement("CellPhone")]
+        public string CellPhone { get; set; }
+
         [XmlElement("ContributeIndividually")]
         public bool ContributeIndividually { get; set; }
 

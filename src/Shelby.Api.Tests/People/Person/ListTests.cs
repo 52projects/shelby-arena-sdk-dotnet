@@ -24,6 +24,7 @@ namespace Shelby.Api.Tests.Session {
             qo.AddSearchByFeild("FirstName", "chad");
 
             var results = this.ShelbyRestClient.People.Individuals.FindAll(qo);
+            var peopleWithPhones = results.Where(x => x.Phones.Count > 0).ToList();
             results.Count.ShouldBeGreaterThan(0);
         }
 
