@@ -21,7 +21,7 @@ namespace Shelby.Api.Tests.Session {
         [TestMethod]
         public void integration_people_list_get_people() {
             var qo = new PersonQO();
-            qo.AddSearchByFeild("FirstName", "chad");
+            qo.AddSearchByField("FirstName", "chad");
 
             var results = this.ShelbyRestClient.People.Individuals.FindAll(qo);
             var peopleWithPhones = results.Where(x => x.Phones.Count > 0).ToList();
@@ -31,8 +31,8 @@ namespace Shelby.Api.Tests.Session {
         [TestMethod]
         public void integration_people_list_get_people_search_first_last() {
             var qo = new PersonQO();
-            qo.AddSearchByFeild("FirstName", "chad");
-            qo.AddSearchByFeild("LastName", "meyer");
+            qo.AddSearchByField("FirstName", "chad");
+            qo.AddSearchByField("LastName", "meyer");
 
             var results = this.ShelbyRestClient.People.Individuals.FindAll(qo);
             results.Count.ShouldBeGreaterThan(0);

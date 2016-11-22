@@ -13,7 +13,7 @@ namespace Shelby.Api {
         public Dictionary<string, string> SearchByFields { get; set; }
         public Shelby.Api.Enum.SortDirection SortDirection { get; set; } = Api.Enum.SortDirection.ASC;
 
-        public void AddSearchByFeild(string field, string value) {
+        public void AddSearchByField(string field, string value) {
             if (this.SearchByFields.ContainsKey(field)) {
                 throw new Exception("Field " + field + " is already part of the searc collection.");
             }

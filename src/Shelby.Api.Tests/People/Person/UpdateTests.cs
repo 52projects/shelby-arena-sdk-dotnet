@@ -19,13 +19,5 @@ namespace Shelby.Api.Tests.People {
             base.Setup();
             this.ShelbyRestClient.ApiSession = base.GetApiSession();
         }
-        [TestMethod]
-        public void integration_people_list_get_people() {
-            var qo = new PersonQO();
-            qo.AddSearchByFeild("FirstName", "chad");
-            qo.AddSearchByFeild("LastName", "meyer");
-
-            var results = this.ShelbyRestClient.People.Individuals.FindAll(qo);
-        }
     }
 }
