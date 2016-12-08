@@ -25,8 +25,14 @@ namespace Shelby.Api.Tests.Giving.Contributions {
                 PersonInformation = new Api.Giving.Entity.PersonInformation {
                     FirstName = "Chad",
                     LastName = "Meyer"
-                }
+                },
+                 CurrencyAmount = 1.12m
             };
+
+            contribution.ContributionFunds.Add(new Api.Giving.Entity.ContributionFund {
+                Amount = 1.12m,
+                FundId = 1
+            });
             var results = this.ShelbyRestClient.Giving.Contributions.Create(1, contribution);
 
             results.Successful.ShouldBe(true);
