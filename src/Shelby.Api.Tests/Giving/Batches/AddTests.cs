@@ -9,9 +9,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shelby.Api;
 using Shouldly;
 
-namespace Shelby.Api.Tests.Giving.BatchTypes {
+namespace Shelby.Api.Tests.Giving.Batches {
     [TestClass]
-    class ListTests : ContributionBase {
+    class AddTests : ContributionBase {
 
         [TestInitialize]
         public override void Setup() {
@@ -19,8 +19,15 @@ namespace Shelby.Api.Tests.Giving.BatchTypes {
             this.ShelbyRestClient.ApiSession = base.GetApiSession();
         }
         [TestMethod]
-        public void integration_giving_batch_types_list_types() {
-            var results = this.ShelbyRestClient.Giving.BatchTypes.FindAll();
+        public void integration_giving_batches_create_batch() {
+            var batch = new Shelby.Api.Giving.Entity.Batch {
+                BatchDate = DateTime.UtcNow,
+                BatchDateEnd = DateTime.UtcNow.AddDays(1),
+                BatchName = "Testing API",
+                BatchTypeName = "Unknown",
+                Finalized = false
+            };
+            var results = this.ShelbyRestClient.Giving.Batches.Create(batch);
             results.Count.ShouldBeGreaterThan(0);
         }
     }

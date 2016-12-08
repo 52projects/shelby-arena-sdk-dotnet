@@ -14,5 +14,8 @@ namespace Shelby.Api.Entity {
         public string ErrorMessage { get; set; }
         [XmlElement("Successful")]
         public bool Successful { get; set; }
+
+        [XmlElement("Link")]
+        public string Link { get; set; }
     }
 }

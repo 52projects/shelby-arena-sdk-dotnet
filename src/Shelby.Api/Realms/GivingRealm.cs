@@ -9,6 +9,8 @@ namespace Shelby.Api.Realms {
     public class GivingRealm : BaseRealm {
         private Giving.Sets.BatchTypes _batchTypesSet;
         private Giving.Sets.Batches _batchesSet;
+        private Giving.Sets.Funds _fundsSet;
+        private Giving.Sets.Contributions _contributionsSet;
 
         public GivingRealm(RequestCredentials credentials) : base(credentials) {
 
@@ -32,6 +34,26 @@ namespace Shelby.Api.Realms {
                 }
 
                 return _batchesSet;
+            }
+        }
+
+        public Shelby.Api.Giving.Sets.Funds Funds {
+            get {
+                if (_fundsSet == null) {
+                    _fundsSet = new Giving.Sets.Funds(base._requestCredentials);
+                }
+
+                return _fundsSet;
+            }
+        }
+
+        public Shelby.Api.Giving.Sets.Contributions Contributions {
+            get {
+                if (_contributionsSet == null) {
+                    _contributionsSet = new Giving.Sets.Contributions(base._requestCredentials);
+                }
+
+                return _contributionsSet;
             }
         }
         #endregion Sets

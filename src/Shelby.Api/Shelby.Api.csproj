@@ -64,9 +64,12 @@
     <Compile Include="Entity\ApiSession.cs" />
     <Compile Include="Giving\Entity\Batch.cs" />
     <Compile Include="Giving\Entity\BatchType.cs" />
+    <Compile Include="Giving\Entity\Fund.cs" />
     <Compile Include="Giving\QueryObject\BatchQO.cs" />
+    <Compile Include="Giving\QueryObject\FundQO.cs" />
     <Compile Include="Giving\Sets\Batches.cs" />
     <Compile Include="Giving\Sets\BatchTypes.cs" />
+    <Compile Include="Giving\Sets\Funds.cs" />
     <Compile Include="People\Entity\Address.cs" />
     <Compile Include="People\Entity\Email.cs" />
     <Compile Include="People\Entity\Person.cs" />

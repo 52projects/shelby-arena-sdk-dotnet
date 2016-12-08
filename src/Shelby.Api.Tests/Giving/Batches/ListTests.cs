@@ -11,7 +11,7 @@ using Shouldly;
 
 namespace Shelby.Api.Tests.Giving.Batches {
     [TestClass]
-    class ListTests : BaseTest {
+    class ListTests : ContributionBase {
 
         [TestInitialize]
         public override void Setup() {
@@ -19,7 +19,7 @@ namespace Shelby.Api.Tests.Giving.Batches {
             this.ShelbyRestClient.ApiSession = base.GetApiSession();
         }
         [TestMethod]
-        public void integration_giving_batch_types_list_types() {
+        public void integration_giving_batches_list_all() {
             var results = this.ShelbyRestClient.Giving.Batches.FindAll(new Api.Giving.QueryObject.BatchQO { });
             results.Count.ShouldBeGreaterThan(0);
         }

@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shelby.Api;
 using Shouldly;
+using Shelby.Api.Exceptions;
 
-namespace Shelby.Api.Tests.Giving.BatchTypes {
+namespace Shelby.Api.Tests.Giving.Funds {
     [TestClass]
-    class ListTests : ContributionBase {
+    class GetTests : ContributionBase {
 
         [TestInitialize]
         public override void Setup() {
@@ -19,9 +20,10 @@ namespace Shelby.Api.Tests.Giving.BatchTypes {
             this.ShelbyRestClient.ApiSession = base.GetApiSession();
         }
         [TestMethod]
-        public void integration_giving_batch_types_list_types() {
-            var results = this.ShelbyRestClient.Giving.BatchTypes.FindAll();
-            results.Count.ShouldBeGreaterThan(0);
+        [ExpectedException(typeof(ApiAccessException))]
+        public void integration_giving_funds_get() {
+            var result = this.ShelbyRestClient.Giving.Funds.Get("1");
+            result.ShouldNotBe(null);
         }
     }
 }

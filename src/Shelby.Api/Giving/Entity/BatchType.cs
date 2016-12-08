@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Xml;
+using System;
+using System.Xml.Serialization;
 
 namespace Shelby.Api.Giving.Entity {
+    [Serializable]
     public class BatchType {
+        [XmlElement("TypeID")]
+        public int TypeID { get; set; }
+        [XmlElement("Name")]
+        public string Name { get; set; }
     }
 }
