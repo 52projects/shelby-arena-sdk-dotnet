@@ -56,9 +56,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Giving\Batches\AddTests.cs" />
     <Compile Include="Giving\Batches\ListTests.cs" />
     <Compile Include="Giving\BatchTypes\ListTests.cs" />
     <Compile Include="Giving\ContributionBase.cs" />
+    <Compile Include="Giving\Contributions\CreateTests.cs" />
+    <Compile Include="Giving\Contributions\GetTests.cs" />
+    <Compile Include="Giving\Contributions\ListTests.cs" />
+    <Compile Include="Giving\Funds\GetTests.cs" />
     <Compile Include="Giving\Funds\ListTests.cs" />
     <Compile Include="People\Person\CreateTests.cs" />
     <Compile Include="People\Person\GetTests.cs" />

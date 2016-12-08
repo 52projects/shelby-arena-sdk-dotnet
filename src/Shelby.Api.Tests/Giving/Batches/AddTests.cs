@@ -28,7 +28,6 @@ namespace Shelby.Api.Tests.Giving.Batches {
                 Finalized = false
             };
             var results = this.ShelbyRestClient.Giving.Batches.Create(batch);
-            results.Count.ShouldBeGreaterThan(0);
         }
     }
 }

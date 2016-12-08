@@ -27,7 +27,7 @@ namespace Shelby.Api.Tests.Giving.Contributions {
         [TestMethod]
         public void integration_giving_contirubtions_list_filter_date() {
             var qo = new Api.Giving.QueryObject.ContributionQO();
-            qo.SearchByFields.Add("fromDate", "2016-12-6");
+            qo.SearchByFields.Add("fromDate", "2016-6-1");
             qo.SearchByFields.Add("toDate", "2016-12-7");
             var results = this.ShelbyRestClient.Giving.Contributions.FindAll(qo);
             results.Count.ShouldBeGreaterThan(0);

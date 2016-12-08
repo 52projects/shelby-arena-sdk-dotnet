@@ -17,5 +17,8 @@ namespace Shelby.Api.Entity {
 
         [XmlElement("Link")]
         public string Link { get; set; }
+
+        [XmlElement("ObjectID")]
+        public string ObjectID { get; set; }
     }
 }
