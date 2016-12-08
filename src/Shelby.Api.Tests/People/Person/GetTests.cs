@@ -12,7 +12,7 @@ using Shelby.Api.People.QueryObject;
 namespace Shelby.Api.Tests.People {
     [TestClass]
     class GetTests : BaseTest {
-        private int _personID = 16109;
+        private int _personID = 183820;
 
         [TestInitialize]
         public override void Setup() {
