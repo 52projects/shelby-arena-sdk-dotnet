@@ -12,12 +12,12 @@ using Shelby.Api.People.QueryObject;
 namespace Shelby.Api.Tests.People {
     [TestClass]
     class GetTests : BaseTest {
-        private int _personID = 183820;
+        private int _personID = 183828;
 
         [TestInitialize]
         public override void Setup() {
             base.Setup();
-            this.ShelbyRestClient.ApiSession = base.GetApiSession();
+            base.GetApiSession();
         }
 
         [TestMethod]

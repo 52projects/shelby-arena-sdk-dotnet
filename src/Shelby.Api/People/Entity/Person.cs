@@ -47,6 +47,12 @@ namespace Shelby.Api.People.Entity {
         [XmlElement("BusinessPhone")]
         public string BusinessPhone { get; set; }
 
+        [XmlElement("CampusID")]
+        public int? CampusID { get; set; }
+
+        [XmlElement("CampusName")]
+        public string CampusName { get; set; }
+
         [XmlElement("CellPhone")]
         public string CellPhone { get; set; }
 
@@ -104,6 +110,12 @@ namespace Shelby.Api.People.Entity {
 
         [XmlElement("LastName")]
         public string LastName { get; set; }
+
+        [XmlElement("MaritalStatusID")]
+        public int? MaritalStatusID { get; set; }
+
+        [XmlElement("MaritalStatusValue")]
+        public string MaritalStatusValue { get; set; }
 
         [XmlElement("MemberStatusID")]
         public int MemberStatusID { get; set; }
