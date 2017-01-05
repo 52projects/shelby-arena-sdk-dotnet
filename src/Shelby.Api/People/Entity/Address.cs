@@ -21,9 +21,9 @@ namespace Shelby.Api.People.Entity {
         public bool Primary { get; set; }
         [XmlElement("State")]
         public string State { get; set; }
-        [XmlElement("StreeLine1")]
+        [XmlElement("StreetLine1")]
         public string StreetLine1 { get; set; }
-        [XmlElement("StreeLine2")]
+        [XmlElement("StreetLine2")]
         public string StreetLine2 { get; set; }
     }
 }
