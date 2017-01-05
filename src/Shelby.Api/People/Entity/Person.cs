@@ -76,16 +76,16 @@ namespace Shelby.Api.People.Entity {
         public List<Email> Emails { get; set; }
 
         [XmlElement("EnvelopeNumber")]
-        public int EnvelopeNumber { get; set; }
+        public int? EnvelopeNumber { get; set; }
 
         [XmlElement("FamilyID")]
-        public int FamilyID { get; set; }
+        public int? FamilyID { get; set; }
 
         [XmlElement("FamilyLink")]
         public string FamilyLink { get; set; }
 
         [XmlElement("FamilyMemberRoleID")]
-        public int FamilyMemberRoleID { get; set; }
+        public int? FamilyMemberRoleID { get; set; }
 
         [XmlElement("FamilyMemberRoleValue")]
         public string FamilyMemberRoleValue { get; set; }
@@ -118,7 +118,7 @@ namespace Shelby.Api.People.Entity {
         public string MaritalStatusValue { get; set; }
 
         [XmlElement("MemberStatusID")]
-        public int MemberStatusID { get; set; }
+        public int? MemberStatusID { get; set; }
 
         [XmlElement("MemberStatusValue")]
         public string MemberStatusValue { get; set; }
@@ -146,19 +146,19 @@ namespace Shelby.Api.People.Entity {
         public bool PrintStatement { get; set; }
 
         [XmlElement("RecordStatusID")]
-        public int RecordStatusID { get; set; }
+        public int? RecordStatusID { get; set; }
 
         [XmlElement("RegionName")]
         public string RegionName { get; set; }
 
         [XmlElement("SuffixID")]
-        public int SuffixID { get; set; }
+        public int? SuffixID { get; set; }
 
         [XmlElement("SuffixValue")]
         public string SuffixValue { get; set; }
 
         [XmlElement("TitleID")]
-        public int TitleID { get; set; }
+        public int? TitleID { get; set; }
 
         [XmlElement("TitleValue")]
         public string TitleValue { get; set; }

@@ -19,6 +19,6 @@ namespace Shelby.Api.Giving.Entity {
         [XmlElement("FundId")]
         public int FundId { get; set; }
         [XmlElement("ProjectId")]
-        public int ProjectId { get; set; }
+        public int? ProjectId { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Shelby.Api.Tests.Giving.Contributions {
         }
         [TestMethod]
         public void integration_giving_contributions_get() {
-            var result = this.ShelbyRestClient.Giving.Contributions.Get("1690012");
+            var result = this.ShelbyRestClient.Giving.Contributions.Get("1690033");
             result.ShouldNotBe(null);
         }
     }
