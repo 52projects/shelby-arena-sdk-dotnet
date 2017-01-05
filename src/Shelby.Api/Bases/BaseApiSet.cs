@@ -338,7 +338,7 @@ namespace Shelby.Api {
                 throw new NotImplementedException("The property EditUrl has no value on the ApiSet.");
             }
 
-            var request = CreateRestRequest(Method.PUT, string.Format(EditUrl, id));
+            var request = CreateRestRequest(Method.POST, string.Format(EditUrl, id));
             if (_contentType == ContentType.XML) {
                 request.AddParameter("application/xml", entity.ToXml(), ParameterType.RequestBody);
             }
@@ -356,7 +356,7 @@ namespace Shelby.Api {
             }
 
             requestXml = entity.ToXml();
-            var request = CreateRestRequest(Method.PUT, string.Format(EditUrl, id));
+            var request = CreateRestRequest(Method.POST, string.Format(EditUrl, id));
             if (_contentType == ContentType.XML) {
                 request.AddParameter("application/xml", entity.ToXml(), ParameterType.RequestBody);
             }
