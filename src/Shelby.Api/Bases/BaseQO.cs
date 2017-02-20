@@ -19,5 +19,10 @@ namespace Shelby.Api {
             }
             this.SearchByFields.Add(field, value);
         }
+
+        public void AddPagingElements(int pageIndex, int pageSize = 100) {
+            this.SearchByFields.Add("pageIndex", pageIndex.ToString());
+            this.SearchByFields.Add("pageSize", pageSize.ToString());
+        }
     }
 }
