@@ -20,7 +20,8 @@ namespace Shelby.Api.Tests.Giving.Contributions {
         }
         [TestMethod]
         public void integration_giving_contirubtions_list_all() {
-            var results = this.ShelbyRestClient.Giving.Contributions.FindAll(new Api.Giving.QueryObject.ContributionQO { });
+            var response = this.ShelbyRestClient.Giving.Contributions.FindAll(new Api.Giving.QueryObject.ContributionQO { });
+            var results = response.Data;
             results.Count.ShouldBeGreaterThan(0);
         }
 
@@ -31,7 +32,8 @@ namespace Shelby.Api.Tests.Giving.Contributions {
             qo.SearchByFields.Add("toDate", "2017-3-13");
             qo.SearchByFields.Add("firstname", "Justin");
             qo.SearchByFields.Add("lastname", "Lester");
-            var results = this.ShelbyRestClient.Giving.Contributions.FindAll(qo);
+            var response = this.ShelbyRestClient.Giving.Contributions.FindAll(qo);
+            var results = response.Data;
             results.Count.ShouldBeGreaterThan(0);
         }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Shelby.Api.Giving.Entity;
 using Shelby.Api.Entity;
 using Shelby.Api.Giving.QueryObject;
+using Shelby.Api.Model;
 
 namespace Shelby.Api.Giving.Sets {
     public class Batches : ApiSet<Batch> {
@@ -16,11 +17,11 @@ namespace Shelby.Api.Giving.Sets {
 
         }
 
-        public List<Batch> FindAll(BatchQO qo) {
+        public IShelbyResponse<List<Batch>> FindAll(BatchQO qo) {
             return base.FindAll("batch/list", qo);
         }
 
-        public Batch FindByID(int id) {
+        public IShelbyResponse<Batch> FindByID(int id) {
             return base.Get(id.ToString());
         }
     }

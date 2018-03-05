@@ -11,7 +11,7 @@ using Shelby.Api.People.QueryObject;
 
 namespace Shelby.Api.Tests.People {
     [TestClass]
-    class GetTests : BaseTest {
+    class ApiDocTests : BaseTest {
         private int _personID = 183828;
 
         [TestInitialize]
@@ -21,7 +21,7 @@ namespace Shelby.Api.Tests.People {
         }
 
         [TestMethod]
-        public void integration_people_get_person() {
+        public void integration_get_api_doc() {
             var response = this.ShelbyRestClient.People.Individuals.FindByID(_personID);
             var result = response.Data;
             result.PersonID.ShouldBe(_personID);

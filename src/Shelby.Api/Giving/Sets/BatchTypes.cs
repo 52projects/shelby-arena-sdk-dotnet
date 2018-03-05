@@ -8,6 +8,7 @@ using Shelby.Api.People.Entity;
 using Shelby.Api.Entity;
 using Shelby.Api.Giving.QueryObject;
 using Shelby.Api.Giving.Entity;
+using Shelby.Api.Model;
 
 namespace Shelby.Api.Giving.Sets {
     public class BatchTypes : ApiSet<BatchType> {
@@ -15,7 +16,7 @@ namespace Shelby.Api.Giving.Sets {
 
         }
 
-        public List<BatchType> FindAll() {
+        public IShelbyResponse<List<BatchType>> FindAll() {
             return base.FindAll("batchtype/list");
         }
     }

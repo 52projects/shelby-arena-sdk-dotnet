@@ -8,6 +8,7 @@ using Shelby.Api.People.Entity;
 using Shelby.Api.Entity;
 using Shelby.Api.People.QueryObject;
 using RestSharp;
+using Shelby.Api.Model;
 
 namespace Shelby.Api.People.Sets {
     public class Person : ApiSet<Entity.Person> {
@@ -18,11 +19,11 @@ namespace Shelby.Api.People.Sets {
 
         }
 
-        public List<Entity.Person> FindAll(PersonQO qo) {
+        public IShelbyResponse<List<Entity.Person>> FindAll(PersonQO qo) {
             return base.FindAll("person/list", qo);
         }
 
-        public Entity.Person FindByID(int id) {
+        public IShelbyResponse<Entity.Person> FindByID(int id) {
             return base.Get(id.ToString());
         }
     }

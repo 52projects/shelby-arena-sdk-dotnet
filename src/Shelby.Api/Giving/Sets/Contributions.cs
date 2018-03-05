@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Shelby.Api.Giving.Entity;
 using Shelby.Api.Entity;
 using Shelby.Api.Giving.QueryObject;
+using Shelby.Api.Model;
 
 namespace Shelby.Api.Giving.Sets {
     public class Contributions : ApiSet<Contribution> {
@@ -17,15 +18,15 @@ namespace Shelby.Api.Giving.Sets {
 
         }
 
-        public List<Contribution> FindAll(ContributionQO qo) {
+        public IShelbyResponse<List<Contribution>> FindAll(ContributionQO qo) {
             return base.FindAll("contribution/list", qo);
         }
 
-        public Contribution FindByID(int id) {
+        public IShelbyResponse<Contribution> FindByID(int id) {
             return base.Get(id.ToString());
         }
 
-        public ModifyResult Create(int batchID, Contribution entity) {
+        public IShelbyResponse<ModifyResult> Create(int batchID, Contribution entity) {
             var requestXml = string.Empty;
             this._createUrl = $"batch/{batchID}/contribution/add";
             return base.Create(entity, out requestXml);

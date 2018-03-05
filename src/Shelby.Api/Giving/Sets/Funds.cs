@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Shelby.Api.Giving.Entity;
 using Shelby.Api.Entity;
 using Shelby.Api.Giving.QueryObject;
+using Shelby.Api.Model;
 
 namespace Shelby.Api.Giving.Sets {
     public class Funds : ApiSet<Fund> {
@@ -16,11 +17,11 @@ namespace Shelby.Api.Giving.Sets {
 
         }
 
-        public List<Fund> FindAll(FundQO qo) {
+        public IShelbyResponse<List<Fund>> FindAll(FundQO qo) {
             return base.FindAll("fund/list", qo);
         }
 
-        public Fund FindByID(int id) {
+        public IShelbyResponse<Fund> FindByID(int id) {
             return base.Get(id.ToString());
         }
     }

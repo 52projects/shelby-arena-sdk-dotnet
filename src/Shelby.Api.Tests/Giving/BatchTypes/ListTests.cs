@@ -20,7 +20,8 @@ namespace Shelby.Api.Tests.Giving.BatchTypes {
         }
         [TestMethod]
         public void integration_giving_batch_types_list_types() {
-            var results = this.ShelbyRestClient.Giving.BatchTypes.FindAll();
+            var response = this.ShelbyRestClient.Giving.BatchTypes.FindAll();
+            var results = response.Data;
             results.Count.ShouldBeGreaterThan(0);
         }
     }

@@ -20,7 +20,8 @@ namespace Shelby.Api.Tests.Giving.Batches {
         }
         [TestMethod]
         public void integration_giving_batches_list_all() {
-            var results = this.ShelbyRestClient.Giving.Batches.FindAll(new Api.Giving.QueryObject.BatchQO { });
+            var response = this.ShelbyRestClient.Giving.Batches.FindAll(new Api.Giving.QueryObject.BatchQO { });
+            var results = response.Data;
             results.Count.ShouldBeGreaterThan(0);
         }
     }

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RestSharp;
-using RestSharp.Authenticators;
-using Shelby.Api.Extensions;
-using Shelby.Api.Exceptions;
 using System.IO;
+using System.Linq;
+using RestSharp;
 using Shelby.Api.Entity;
-using Shelby.Api;
+using Shelby.Api.Exceptions;
+using Shelby.Api.Extensions;
+using Shelby.Api.Model;
 
 namespace Shelby.Api {
     public abstract class BaseApiSet<T> where T : new() {
@@ -70,17 +67,17 @@ namespace Shelby.Api {
         #endregion Constructor
 
         #region Actions
-        public virtual List<T> List() {
+        public virtual IShelbyResponse<List<T>> List() {
             if (string.IsNullOrWhiteSpace(ListUrl)) {
                 throw new NotImplementedException("The property ListUrl has no value on the ApiSet.");
             }
 
             var request = CreateRestRequest(Method.GET, ListUrl);
             var item = ExecuteListRequest(request);
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
-        public virtual List<T> List(string parentID) {
+        public virtual IShelbyResponse<List<T>> List(string parentID) {
             if (string.IsNullOrWhiteSpace(GetChildListUrl)) {
                 throw new NotImplementedException("The property GetChildListUrl has no value on the ApiSet.");
             }
@@ -88,24 +85,24 @@ namespace Shelby.Api {
             var request = CreateRestRequest(Method.GET, string.Format(GetChildListUrl, parentID));
             var item = ExecuteListRequest(request);
 
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
-        public List<S> ListBySuffixUrl<S>(string url) where S : new() {
+        public IShelbyResponse<List<S>> ListBySuffixUrl<S>(string url) where S : new() {
             var request = CreateRestRequest(Method.GET, url);
             var item = ExecuteCustomRequest<List<S>>(request);
 
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
-        public virtual T Get(string id) {
+        public virtual IShelbyResponse<T> Get(string id) {
             if (string.IsNullOrWhiteSpace(GetUrl)) {
                 throw new NotImplementedException("The property GetUrl has no value on the ApiSet.");
             }
             var request = CreateRestRequest(Method.GET, string.Format(GetUrl, id));
             var item = ExecuteRequest(request);
 
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
         /// <summary>
@@ -114,7 +111,7 @@ namespace Shelby.Api {
         /// <param name="parentID">The parent ID</param>
         /// <param name="id">The child ID</param>
         /// <returns>Returns a generic object (T)</returns>
-        public virtual T Get(string parentID, string id) {
+        public virtual IShelbyResponse<T> Get(string parentID, string id) {
             if (string.IsNullOrWhiteSpace(GetChildUrl)) {
                 throw new NotImplementedException("The property GetChildUrl has no value on the ApiSet.");
             }
@@ -122,21 +119,21 @@ namespace Shelby.Api {
             var request = CreateRestRequest(Method.GET, string.Format(GetChildUrl, parentID, id));
             var item = ExecuteRequest(request);
 
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
-        public virtual T GetByUrl(string url) {
+        public virtual IShelbyResponse<T> GetByUrl(string url) {
             var request = CreateRestRequest(Method.GET, url.Substring(this._requestCredentials.BaseUrl.Length));
             var item = ExecuteRequest(request);
 
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
-        public virtual S GetBySuffixUrl<S>(string url) where S : new() {
+        public virtual IShelbyResponse<S> GetBySuffixUrl<S>(string url) where S : new() {
             var request = CreateRestRequest(Method.GET, url);
             var item = ExecuteCustomRequest<S>(request);
 
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
         public virtual string GetBySuffixUrl(string url) {
@@ -146,18 +143,13 @@ namespace Shelby.Api {
             return item.Content;
         }
 
-        public virtual S Search<S>(BaseQO qo) where S : new() {
+        public virtual IShelbyResponse<S> Search<S>(BaseQO qo) where S : new() {
             if (string.IsNullOrWhiteSpace(SearchUrl)) {
                 throw new NotImplementedException("The property SearchUrl has no value on the ApiSet.");
             }
             var request = CreateRestRequest(Method.GET, SearchUrl);
-
-            //foreach (var pair in qo.ToDictionary()) {
-            //    request.AddParameter(pair.Key, pair.Value);
-            //}
-
             var list = ExecuteCustomRequest<S>(request);
-            return list.Data;
+            return list.ToShelbyResponse();
         }
 
         public virtual IRestResponse Post(string url) {
@@ -189,7 +181,7 @@ namespace Shelby.Api {
             return (int)item.StatusCode < 300;
         }
 
-        public virtual ModifyResult Create(byte[] stream, string url = "", string fileParamaterName = "stream", string fileName = "", string fileType = "") {
+        public virtual IShelbyResponse<ModifyResult> Create(byte[] stream, string url = "", string fileParamaterName = "stream", string fileName = "", string fileType = "") {
             var targetUrl = string.Empty;
             if (!string.IsNullOrWhiteSpace(url)) {
                 if (url.Trim().Length <= this._requestCredentials.BaseUrl.Length) {
@@ -207,7 +199,7 @@ namespace Shelby.Api {
             request.AddFile(fileParamaterName, stream, fileName, fileType);
 
             var response = this.ExecuteCustomRequest<ModifyResult>(request);
-            return response.Data;
+            return response.ToShelbyResponse();
         }
 
         public virtual bool Create<S>(S entity, string url = "") where S : new() {
@@ -245,7 +237,7 @@ namespace Shelby.Api {
             return (int)item.StatusCode < 300;
         }
 
-        public virtual ModifyResult Create(T entity, string url = "") {
+        public virtual IShelbyResponse<ModifyResult> Create(T entity, string url = "") {
             var targetUrl = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(url)) {
@@ -277,10 +269,10 @@ namespace Shelby.Api {
             }
 
             var item = ExecuteCustomRequest<ModifyResult>(request);
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
-        public virtual ModifyResult Create(T entity, out string requestXml, string url = "") {
+        public virtual IShelbyResponse<ModifyResult> Create(T entity, out string requestXml, string url = "") {
             requestXml = entity.ToXml();
             var targetUrl = string.Empty;
 
@@ -309,7 +301,7 @@ namespace Shelby.Api {
             }
 
             var item = ExecuteCustomRequest<ModifyResult>(request);
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
         public virtual bool Update(byte[] stream, string url = "", string filename = "", string fileType = "") {
@@ -333,7 +325,7 @@ namespace Shelby.Api {
             return (int)item.StatusCode < 300;
         }
 
-        public virtual ModifyResult Update(T entity, string id) {
+        public virtual IShelbyResponse<ModifyResult> Update(T entity, string id) {
             if (string.IsNullOrWhiteSpace(EditUrl)) {
                 throw new NotImplementedException("The property EditUrl has no value on the ApiSet.");
             }
@@ -347,10 +339,10 @@ namespace Shelby.Api {
             }
 
             var item = ExecuteCustomRequest<ModifyResult>(request);
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
-        public virtual ModifyResult Update(T entity, string id, out string requestXml) {
+        public virtual IShelbyResponse<ModifyResult> Update(T entity, string id, out string requestXml) {
             if (string.IsNullOrWhiteSpace(EditUrl)) {
                 throw new NotImplementedException("The property EditUrl has no value on the ApiSet.");
             }
@@ -365,7 +357,7 @@ namespace Shelby.Api {
             }
 
             var item = ExecuteCustomRequest<ModifyResult>(request);
-            return item.Data;
+            return item.ToShelbyResponse();
         }
 
         public virtual bool Delete(string id) {
@@ -398,7 +390,7 @@ namespace Shelby.Api {
 
         #region Private Methods
 
-        internal List<T> FindAll(string url, BaseQO qo) {
+        internal IShelbyResponse<List<T>> FindAll(string url, BaseQO qo) {
             this._parameters = new Dictionary<string, string>();
             var request = CreateRestRequest(Method.GET, url);
 
@@ -410,14 +402,14 @@ namespace Shelby.Api {
             request.AddParameter("sortDirection", qo.SortDirection.ToDescription());
 
             var results = ExecuteListRequest(request);
-            return results.Data;
+            return results.ToShelbyResponse();
         }
 
-        internal List<T> FindAll(string url) {
+        internal IShelbyResponse<List<T>> FindAll(string url) {
             this._parameters = new Dictionary<string, string>();
             var request = CreateRestRequest(Method.GET, url);
             var results = ExecuteListRequest(request);
-            return results.Data;
+            return results.ToShelbyResponse();
         }
 
         internal IRestResponse<T> ExecuteRequest(IRestRequest request) {

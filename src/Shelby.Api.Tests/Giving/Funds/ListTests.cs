@@ -20,7 +20,8 @@ namespace Shelby.Api.Tests.Giving.Funds {
         }
         [TestMethod]
         public void integration_giving_funds_list_all() {
-            var results = this.ShelbyRestClient.Giving.Funds.FindAll(new Api.Giving.QueryObject.FundQO { });
+            var response = this.ShelbyRestClient.Giving.Funds.FindAll(new Api.Giving.QueryObject.FundQO { });
+            var results = response.Data;
             results.Count.ShouldBeGreaterThan(0);
         }
     }

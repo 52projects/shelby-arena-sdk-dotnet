@@ -23,7 +23,8 @@ namespace Shelby.Api.Tests.Session {
             var qo = new PersonQO();
             qo.AddSearchByField("FirstName", "chad");
 
-            var results = this.ShelbyRestClient.People.Individuals.FindAll(qo);
+            var response = this.ShelbyRestClient.People.Individuals.FindAll(qo);
+            var results = response.Data;
             var peopleWithPhones = results.Where(x => x.Phones.Count > 0).ToList();
             results.Count.ShouldBeGreaterThan(0);
         }
@@ -34,7 +35,8 @@ namespace Shelby.Api.Tests.Session {
             qo.AddSearchByField("FirstName", "chad");
             qo.AddSearchByField("LastName", "meyer");
 
-            var results = this.ShelbyRestClient.People.Individuals.FindAll(qo);
+            var response = this.ShelbyRestClient.People.Individuals.FindAll(qo);
+            var results = response.Data;
             results.Count.ShouldBeGreaterThan(0);
         }
     }

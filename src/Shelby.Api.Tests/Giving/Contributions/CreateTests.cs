@@ -33,7 +33,8 @@ namespace Shelby.Api.Tests.Giving.Contributions {
                 Amount = 1.12m,
                 FundId = 1
             });
-            var results = this.ShelbyRestClient.Giving.Contributions.Create(1, contribution);
+            var response = this.ShelbyRestClient.Giving.Contributions.Create(1, contribution);
+            var results = response.Data;
 
             results.Successful.ShouldBe(true);
         }

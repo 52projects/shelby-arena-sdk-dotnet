@@ -58,6 +58,7 @@
     <Compile Include="Enum\SortDirection.cs" />
     <Compile Include="Exceptions\BaseExcpetion.cs" />
     <Compile Include="Exceptions\PropertyNotAllowedException.cs" />
+    <Compile Include="Extensions\RestSharpExtensions.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Entity\ApiModel.cs" />
     <Compile Include="Entity\ApiSession.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Giving\Sets\BatchTypes.cs" />
     <Compile Include="Giving\Sets\Contributions.cs" />
     <Compile Include="Giving\Sets\Funds.cs" />
+    <Compile Include="Model\ShelbyResponse.cs" />
     <Compile Include="People\Entity\Address.cs" />
     <Compile Include="People\Entity\Email.cs" />
     <Compile Include="People\Entity\Person.cs" />
