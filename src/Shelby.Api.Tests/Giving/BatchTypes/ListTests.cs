@@ -11,7 +11,7 @@ using Shouldly;
 
 namespace Shelby.Api.Tests.Giving.BatchTypes {
     [TestClass]
-    class ListTests : ContributionBase {
+    public class ListTests : ContributionBase {
 
         [TestInitialize]
         public override void Setup() {

@@ -7,6 +7,7 @@ using Shelby.Api;
 using Shelby.Api.People.Entity;
 using Shelby.Api.Entity;
 using Shelby.Api.People.QueryObject;
+using RestSharp;
 
 namespace Shelby.Api.People.Sets {
     public class Person : ApiSet<Entity.Person> {

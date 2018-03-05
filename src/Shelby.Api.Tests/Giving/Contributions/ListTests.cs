@@ -11,7 +11,7 @@ using Shouldly;
 
 namespace Shelby.Api.Tests.Giving.Contributions {
     [TestClass]
-    class ListTests : ContributionBase {
+    public class ListTests : ContributionBase {
 
         [TestInitialize]
         public override void Setup() {
@@ -27,8 +27,10 @@ namespace Shelby.Api.Tests.Giving.Contributions {
         [TestMethod]
         public void integration_giving_contirubtions_list_filter_date() {
             var qo = new Api.Giving.QueryObject.ContributionQO();
-            qo.SearchByFields.Add("fromDate", "2016-6-1");
-            qo.SearchByFields.Add("toDate", "2016-12-7");
+            qo.SearchByFields.Add("fromDate", "2017-3-12");
+            qo.SearchByFields.Add("toDate", "2017-3-13");
+            qo.SearchByFields.Add("firstname", "Justin");
+            qo.SearchByFields.Add("lastname", "Lester");
             var results = this.ShelbyRestClient.Giving.Contributions.FindAll(qo);
             results.Count.ShouldBeGreaterThan(0);
         }

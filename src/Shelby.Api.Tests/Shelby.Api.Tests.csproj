@@ -63,8 +63,10 @@
     <Compile Include="Giving\Contributions\CreateTests.cs" />
     <Compile Include="Giving\Contributions\GetTests.cs" />
     <Compile Include="Giving\Contributions\ListTests.cs" />
+    <Compile Include="Giving\Contributions\UpdateTests.cs" />
     <Compile Include="Giving\Funds\GetTests.cs" />
     <Compile Include="Giving\Funds\ListTests.cs" />
+    <Compile Include="People\ApiDocTests.cs" />
     <Compile Include="People\Person\CreateTests.cs" />
     <Compile Include="People\Person\GetTests.cs" />
     <Compile Include="People\Person\ListTests.cs" />

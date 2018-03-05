@@ -12,7 +12,7 @@ using Shelby.Api.Exceptions;
 
 namespace Shelby.Api.Tests.Giving.Contributions {
     [TestClass]
-    class GetTests : ContributionBase {
+    public class GetTests : ContributionBase {
 
         [TestInitialize]
         public override void Setup() {
